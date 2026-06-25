@@ -1,0 +1,55 @@
+{
+  "header": {
+    "tagline": "Buy Anything. Pay Nothing.",
+    "search": "Search for anything — it's all ₹0",
+    "language": "EN"
+  },
+  "hero": {
+    "headline": "Shop Without Limits.",
+    "headline2": "Pay ₹0 Always.",
+    "subtext": "India's only store where your cart total is always zero.",
+    "cta": "Start Shopping Free"
+  },
+  "categories": {
+    "title": "Browse by Category",
+    "all": "All Products",
+    "jewellery": "Jewellery & Gold",
+    "luxury-cars": "Luxury Cars",
+    "property": "Property & Land",
+    "electronics": "Electronics",
+    "travel": "Travel & Experiences",
+    "diamonds": "Diamonds",
+    "yachts-jets": "Yachts & Jets",
+    "absurd": "Absurd Gifts"
+  },
+  "featured": {
+    "title": "Today's Impossible Deals 🔥"
+  },
+  "catalog": {
+    "title": "All Products",
+    "subtitle": "Every single one: ₹0",
+    "sort": "Sort",
+    "sortPriceHigh": "Price: Highest First",
+    "sortPriceLow": "Price: Lowest First",
+    "sortName": "Name A–Z",
+    "noProducts": "No products found. Try a different category?"
+  },
+  "product": {
+    "mrp": "M.R.P.",
+    "yourPrice": "Your Price",
+    "addToCart": "Add to Cart",
+    "free": "FREE",
+    "rupeeZero": "₹0"
+  },
+  "marquee": {
+    "text": "FREE SHIPPING • NO PAYMENT NEEDED • 100% FAKE • GUILT FREE SHOPPING • BUY ANYTHING • ₹0 ALWAYS • "
+  },
+  "footer": {
+    "tagline": "ZeroRupees — 100% fake. 100% satisfying.",
+    "about": "About",
+    "howItWorks": "How It Works",
+    "privacy": "Privacy Policy",
+    "disclaimer": "Not a real store. No real transactions. Just pure dopamine.",
+    "copyright": "© 2025 ZeroRupees. All prices are ₹0."
+  }
+}

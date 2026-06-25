@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "ZeroRupees",
+    "slug": "zero-rupees",
+    "version": "1.0.0",
+    "scheme": "zerorupees",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zeroapees.app"
+    },
+    "android": {
+      "package": "com.zeroapees.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#C2185B"
+      }
+    }
+  }
+}
