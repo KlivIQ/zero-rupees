@@ -4,27 +4,31 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useCartStore } from '@/store/cartStore';
-import { Colors } from '@/constants/colors';
 import { Fonts } from '@/constants/fonts';
+import { useTheme } from '@/context/ThemeContext';
 
 export function Header() {
   const { t } = useTranslation();
   const router = useRouter();
   const totalItems = useCartStore((s) => s.totalItems());
+  const { theme, isDark, toggleTheme } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.primary, shadowColor: '#000' }]}>
       <View style={styles.topRow}>
-        <View style={styles.logoContainer}>
+        <Pressable onPress={() => router.replace('/')} style={styles.logoContainer}>
           <Text style={styles.logoZero}>Zero</Text>
           <Text style={styles.logoRupee}>₹0</Text>
-        </View>
+        </Pressable>
         <View style={styles.actions}>
+          <Pressable style={styles.themeBtn} onPress={toggleTheme}>
+            <Text style={styles.themeBtnText}>{isDark ? '☀️' : '🕶️'}</Text>
+          </Pressable>
           <Pressable style={styles.langButton}>
             <Text style={styles.langText}>{t('header.language')} ▾</Text>
           </Pressable>
           <Pressable style={styles.cartButton} onPress={() => router.push('/cart')}>
-            <Ionicons name="cart-outline" size={26} color={Colors.white} />
+            <Ionicons name="cart-outline" size={26} color="#FFFFFF" />
             {totalItems > 0 && (
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
@@ -35,13 +39,12 @@ export function Header() {
           </Pressable>
         </View>
       </View>
-      <Text style={styles.tagline}>{t('header.tagline')}</Text>
       <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={17} color={Colors.textMuted} />
+        <Ionicons name="search-outline" size={17} color="#888888" />
         <TextInput
           style={styles.searchInput}
-          placeholder={t('header.search')}
-          placeholderTextColor={Colors.textMuted}
+          placeholder="Search anything — it's all ₹0"
+          placeholderTextColor="#888888"
           editable={false}
         />
       </View>
@@ -51,16 +54,19 @@ export function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primary,
     paddingHorizontal: 16,
     paddingTop: 14,
-    paddingBottom: 16,
+    paddingBottom: 12,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
   },
   topRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 6,
+    marginBottom: 10,
   },
   logoContainer: {
     flexDirection: 'row',
@@ -70,19 +76,30 @@ const styles = StyleSheet.create({
   logoZero: {
     fontSize: 24,
     fontFamily: Fonts.black,
-    color: Colors.white,
+    color: '#FFFFFF',
     letterSpacing: -0.5,
   },
   logoRupee: {
     fontSize: 24,
     fontFamily: Fonts.black,
-    color: Colors.gold,
+    color: '#FFD700',
     letterSpacing: -0.5,
   },
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 10,
+  },
+  themeBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  themeBtnText: {
+    fontSize: 18,
   },
   langButton: {
     backgroundColor: 'rgba(255,255,255,0.2)',
@@ -91,7 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   langText: {
-    color: Colors.white,
+    color: '#FFFFFF',
     fontFamily: Fonts.semiBold,
     fontSize: 13,
   },
@@ -102,7 +119,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -4,
     right: -6,
-    backgroundColor: Colors.gold,
+    backgroundColor: '#FFD700',
     borderRadius: 10,
     minWidth: 18,
     height: 18,
@@ -113,18 +130,12 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 10,
     fontFamily: Fonts.black,
-    color: Colors.secondary,
-  },
-  tagline: {
-    fontSize: 12,
-    fontFamily: Fonts.semiBold,
-    color: 'rgba(255,255,255,0.85)',
-    marginBottom: 10,
+    color: '#000000',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.white,
+    backgroundColor: '#FFFFFF',
     borderRadius: 24,
     paddingHorizontal: 14,
     paddingVertical: 9,
@@ -134,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     fontFamily: Fonts.regular,
-    color: Colors.text,
+    color: '#1A1A1A',
     padding: 0,
     margin: 0,
   },

@@ -41,24 +41,27 @@ export default function CartScreen() {
           <Text style={styles.itemZeroPrice}>₹0</Text>
         </View>
         <View style={styles.itemControls}>
-          <Pressable
-            style={styles.qtyBtn}
-            onPress={() => updateQuantity(item.productId, -1)}
-          >
-            <Text style={styles.qtyBtnText}>−</Text>
-          </Pressable>
-          <Text style={styles.qtyNum}>{item.quantity}</Text>
-          <Pressable
-            style={styles.qtyBtn}
-            onPress={() => updateQuantity(item.productId, 1)}
-          >
-            <Text style={styles.qtyBtnText}>+</Text>
-          </Pressable>
+          <View style={styles.qtyRow}>
+            <Pressable
+              style={[styles.qtyBtn, item.quantity <= 1 && styles.qtyBtnDisabled]}
+              onPress={() => item.quantity > 1 && updateQuantity(item.productId, -1)}
+              disabled={item.quantity <= 1}
+            >
+              <Text style={[styles.qtyBtnText, item.quantity <= 1 && styles.qtyBtnTextDisabled]}>−</Text>
+            </Pressable>
+            <Text style={styles.qtyNum}>{item.quantity}</Text>
+            <Pressable
+              style={styles.qtyBtn}
+              onPress={() => updateQuantity(item.productId, 1)}
+            >
+              <Text style={styles.qtyBtnText}>+</Text>
+            </Pressable>
+          </View>
           <Pressable
             style={styles.removeBtn}
             onPress={() => removeItem(item.productId)}
           >
-            <Ionicons name="trash-outline" size={16} color={Colors.textMuted} />
+            <Ionicons name="trash-outline" size={18} color="#EF5350" />
           </Pressable>
         </View>
       </View>
@@ -251,31 +254,46 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   itemControls: {
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
-    gap: 6,
+    gap: 8,
+  },
+  qtyRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   qtyBtn: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     backgroundColor: Colors.accent,
+    borderWidth: 1,
+    borderColor: Colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  qtyBtnText: {
-    fontSize: 18,
-    fontFamily: Fonts.black,
-    color: Colors.primary,
-    lineHeight: 22,
+  qtyBtnDisabled: {
+    borderColor: Colors.priceStrike,
+    backgroundColor: '#F5F5F5',
   },
-  qtyNum: {
+  qtyBtnText: {
     fontSize: 16,
     fontFamily: Fonts.black,
+    color: Colors.primary,
+    lineHeight: 20,
+  },
+  qtyBtnTextDisabled: {
+    color: Colors.priceStrike,
+  },
+  qtyNum: {
+    fontSize: 15,
+    fontFamily: Fonts.black,
     color: Colors.text,
+    minWidth: 20,
+    textAlign: 'center',
   },
   removeBtn: {
-    marginTop: 4,
     padding: 4,
   },
   separator: {

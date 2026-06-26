@@ -14,6 +14,7 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -48,14 +49,17 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <StatusBar style="light" />
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(catalog)" />
-          <Stack.Screen name="cart" />
-          <Stack.Screen name="checkout" />
-          <Stack.Screen name="order-confirmed" />
-        </Stack>
+        <ThemeProvider>
+          <StatusBar style="auto" />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(catalog)" />
+            <Stack.Screen name="cart" />
+            <Stack.Screen name="checkout" />
+            <Stack.Screen name="order-confirmed" />
+            <Stack.Screen name="category/[slug]" />
+          </Stack>
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
