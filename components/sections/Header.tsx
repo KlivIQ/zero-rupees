@@ -2,12 +2,14 @@ import React from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useCartStore } from '@/store/cartStore';
 import { Colors } from '@/constants/colors';
 import { Fonts } from '@/constants/fonts';
 
 export function Header() {
   const { t } = useTranslation();
+  const router = useRouter();
   const totalItems = useCartStore((s) => s.totalItems());
 
   return (
@@ -21,7 +23,7 @@ export function Header() {
           <Pressable style={styles.langButton}>
             <Text style={styles.langText}>{t('header.language')} ▾</Text>
           </Pressable>
-          <Pressable style={styles.cartButton}>
+          <Pressable style={styles.cartButton} onPress={() => router.push('/cart')}>
             <Ionicons name="cart-outline" size={26} color={Colors.white} />
             {totalItems > 0 && (
               <View style={styles.badge}>

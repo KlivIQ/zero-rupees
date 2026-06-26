@@ -52,6 +52,9 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="(catalog)" />
+          <Stack.Screen name="cart" />
+          <Stack.Screen name="checkout" />
+          <Stack.Screen name="order-confirmed" />
         </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>
