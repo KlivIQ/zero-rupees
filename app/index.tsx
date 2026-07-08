@@ -22,23 +22,31 @@ export default function HomeScreen() {
   const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.primary }]} edges={['top']}>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: '#C2185B' }]} edges={['top']}>
       <Header />
       <ScrollView
         style={[styles.scroll, { backgroundColor: theme.background }]}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-        <HeroCarousel />
-        <View style={[styles.divider, { backgroundColor: theme.border }]} />
+        {/* Category grid ABOVE hero carousel */}
         <CategoryGrid />
-        <View style={[styles.divider, { backgroundColor: theme.border }]} />
-        {CATEGORY_SECTIONS.map((cat) => (
+
+        <HeroCarousel />
+
+        <View style={[styles.sectionDivider, { backgroundColor: theme.border }]} />
+
+        {/* Horizontal product sections per category */}
+        {CATEGORY_SECTIONS.map((cat, i) => (
           <React.Fragment key={cat.id}>
             <CategorySection categoryId={cat.id} title={cat.label} emoji={cat.emoji} />
-            <View style={[styles.divider, { backgroundColor: theme.border }]} />
+            {i < CATEGORY_SECTIONS.length - 1 && (
+              <View style={[styles.thinDivider, { backgroundColor: theme.border }]} />
+            )}
           </React.Fragment>
         ))}
+
+        <View style={[styles.sectionDivider, { backgroundColor: theme.border }]} />
         <MarqueeStrip />
         <Footer />
       </ScrollView>
@@ -47,16 +55,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  scroll: {
-    flex: 1,
-  },
-  content: {
-    flexGrow: 1,
-  },
-  divider: {
-    height: 8,
-  },
+  safeArea: { flex: 1 },
+  scroll: { flex: 1 },
+  content: { flexGrow: 1 },
+  sectionDivider: { height: 10 },
+  thinDivider: { height: 1, marginHorizontal: 16 },
 });

@@ -16,27 +16,29 @@ export function CategoryGrid() {
     products.filter((p) => p.categoryId === id).length;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.background, borderBottomColor: theme.border }]}>
       <Text style={[styles.sectionTitle, { color: theme.text }]}>Shop by Category</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.grid}>
-          {displayCategories.map((cat) => {
-            const count = countForCategory(cat.id);
-            return (
-              <Pressable
-                key={cat.id}
-                style={[styles.cell, { backgroundColor: theme.cardBg, borderColor: theme.border }]}
-                onPress={() => router.push(`/category/${cat.id}` as any)}
-              >
-                <Text style={styles.cellEmoji}>{cat.emoji}</Text>
-                <Text style={[styles.cellLabel, { color: theme.text }]} numberOfLines={2}>
-                  {cat.label}
-                </Text>
-                <Text style={[styles.cellCount, { color: theme.primary }]}>{count} items</Text>
-              </Pressable>
-            );
-          })}
-        </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {displayCategories.map((cat) => {
+          const count = countForCategory(cat.id);
+          return (
+            <Pressable
+              key={cat.id}
+              style={[styles.cell, { backgroundColor: theme.cardBg, borderColor: theme.border }]}
+              onPress={() => router.push(`/category/${cat.id}` as any)}
+            >
+              <Text style={styles.cellEmoji}>{cat.emoji}</Text>
+              <Text style={[styles.cellLabel, { color: theme.text }]} numberOfLines={2}>
+                {cat.label}
+              </Text>
+              <Text style={[styles.cellCount, { color: theme.primary }]}>{count} items</Text>
+            </Pressable>
+          );
+        })}
       </ScrollView>
     </View>
   );
@@ -44,21 +46,23 @@ export function CategoryGrid() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
+    paddingTop: 18,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 15,
     fontFamily: Fonts.extraBold,
-    marginBottom: 14,
+    marginBottom: 12,
     paddingHorizontal: 16,
+    letterSpacing: 0.2,
   },
-  grid: {
-    flexDirection: 'row',
+  scrollContent: {
     paddingHorizontal: 16,
     gap: 10,
   },
   cell: {
-    width: 90,
+    width: 84,
     borderRadius: 14,
     borderWidth: 1,
     paddingVertical: 14,
@@ -66,18 +70,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cellEmoji: {
-    fontSize: 28,
+    fontSize: 26,
     marginBottom: 6,
   },
   cellLabel: {
-    fontSize: 11,
+    fontSize: 10,
     fontFamily: Fonts.bold,
     textAlign: 'center',
-    lineHeight: 14,
+    lineHeight: 13,
     marginBottom: 4,
   },
   cellCount: {
-    fontSize: 10,
+    fontSize: 9,
     fontFamily: Fonts.semiBold,
     textAlign: 'center',
   },

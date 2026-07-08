@@ -15,6 +15,7 @@ import { products } from '@/data/products';
 import { categories } from '@/data/categories';
 import { Fonts } from '@/constants/fonts';
 import { useTheme } from '@/context/ThemeContext';
+import { useCartStore } from '@/store/cartStore';
 import { ProductCard } from '@/components/ui/ProductCard';
 
 const { width: SCREEN_W } = Dimensions.get('window');
@@ -72,6 +73,7 @@ export default function CategoryPage() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const router = useRouter();
   const { theme } = useTheme();
+  const totalItems = useCartStore((s) => s.totalItems());
 
   const [priceFilter, setPriceFilter] = useState<PriceFilter>('all');
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('all');
@@ -105,7 +107,14 @@ export default function CategoryPage() {
         <Text style={styles.headerTitle}>
           {category ? `${category.emoji} ${category.label}` : 'Category'}
         </Text>
-        <View style={{ width: 40 }} />
+        <Pressable style={styles.cartBtn} onPress={() => router.push('/cart')}>
+          <Ionicons name="cart-outline" size={24} color="#FFFFFF" />
+          {totalItems > 0 && (
+            <View style={styles.cartBadge}>
+              <Text style={styles.cartBadgeText}>{totalItems > 99 ? '99+' : totalItems}</Text>
+            </View>
+          )}
+        </Pressable>
       </View>
 
       <ScrollView
@@ -209,12 +218,26 @@ const styles = StyleSheet.create({
   },
   backBtn: { width: 40, alignItems: 'flex-start' },
   headerTitle: {
-    fontSize: 17,
+    fontSize: 16,
     fontFamily: Fonts.black,
     color: '#FFFFFF',
     flex: 1,
     textAlign: 'center',
   },
+  cartBtn: { width: 40, alignItems: 'flex-end' },
+  cartBadge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    backgroundColor: '#FFD700',
+    borderRadius: 9,
+    minWidth: 16,
+    height: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 3,
+  },
+  cartBadgeText: { fontSize: 9, fontFamily: Fonts.black, color: '#000000' },
   filterRow: {
     borderBottomWidth: 1,
     maxHeight: 56,
