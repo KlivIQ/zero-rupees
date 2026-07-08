@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -17,8 +17,11 @@ export function Header() {
     <View style={[styles.container, { backgroundColor: theme.primary, shadowColor: '#000' }]}>
       <View style={styles.topRow}>
         <Pressable onPress={() => router.replace('/')} style={styles.logoContainer}>
-          <Text style={styles.logoZero}>Zero</Text>
-          <Text style={styles.logoRupee}>₹0</Text>
+          <Image
+            source={require('../../assets/logo.png')}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
         </Pressable>
         <View style={styles.actions}>
           <Pressable style={styles.themeBtn} onPress={toggleTheme}>
@@ -70,20 +73,11 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 2,
+    alignItems: 'center',
   },
-  logoZero: {
-    fontSize: 24,
-    fontFamily: Fonts.black,
-    color: '#FFFFFF',
-    letterSpacing: -0.5,
-  },
-  logoRupee: {
-    fontSize: 24,
-    fontFamily: Fonts.black,
-    color: '#FFD700',
-    letterSpacing: -0.5,
+  logoImage: {
+    width: 40,
+    height: 40,
   },
   actions: {
     flexDirection: 'row',
