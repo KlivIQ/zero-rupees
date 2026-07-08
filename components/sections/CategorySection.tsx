@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { products } from '@/data/products';
 import { Fonts } from '@/constants/fonts';
@@ -16,7 +16,7 @@ export function CategorySection({ categoryId, title, emoji }: Props) {
   const router = useRouter();
   const { theme } = useTheme();
 
-  const items = products.filter((p) => p.categoryId === categoryId).slice(0, 6);
+  const items = products.filter((p) => p.categoryId === categoryId).slice(0, 8);
   if (items.length === 0) return null;
 
   return (
@@ -29,36 +29,36 @@ export function CategorySection({ categoryId, title, emoji }: Props) {
           <Text style={[styles.seeAll, { color: theme.primary }]}>See All →</Text>
         </Pressable>
       </View>
-      <FlatList
+      {/* Use ScrollView+map instead of FlatList to avoid nested virtualised list crash */}
+      <ScrollView
         horizontal
-        data={items}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.cardWrapper}>
-            <ProductCard product={item} compact />
-          </View>
-        )}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
-      />
+      >
+        {items.map((item) => (
+          <View key={item.id} style={styles.cardWrapper}>
+            <ProductCard product={item} compact />
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 8,
     paddingTop: 20,
+    paddingBottom: 8,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    marginBottom: 12,
+    marginBottom: 14,
   },
   title: {
-    fontSize: 16,
+    fontSize: 17,
     fontFamily: Fonts.extraBold,
   },
   seeAll: {
@@ -67,9 +67,10 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: 16,
-    gap: 10,
+    paddingBottom: 4,
+    gap: 12,
   },
   cardWrapper: {
-    width: 170,
+    width: 175,
   },
 });
